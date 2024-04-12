@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 
@@ -13,8 +15,27 @@ public class WCatalogo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
 	private JButton btnBuscarDirectorio;
 	private JButton btnSalir;
+	
+	//Getters y setters botones
+	public JButton getBtnBuscarDirectorio() {
+		return btnBuscarDirectorio;
+	}
+
+	public void setBtnBuscarDirectorio(JButton btnBuscarDirectorio) {
+		this.btnBuscarDirectorio = btnBuscarDirectorio;
+	}
+
+	public JButton getBtnSalir() {
+		return btnSalir;
+	}
+
+	public void setBtnSalir(JButton btnSalir) {
+		this.btnSalir = btnSalir;
+	}
+
 	private JLabel lblBusqueda;
 
 	/**
@@ -67,5 +88,10 @@ public class WCatalogo extends JFrame {
 		btnSalir.setFont(new Font("Roboto", Font.BOLD, 16));
 		btnSalir.setBounds(829, 25, 118, 43);
 		contentPane.add(btnSalir);
+	}
+	
+	public int avisoCerrarVentana() {
+		int val= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea terminar el programa?", "Avertencia", JOptionPane.YES_NO_OPTION);
+		return val;
 	}
 }
