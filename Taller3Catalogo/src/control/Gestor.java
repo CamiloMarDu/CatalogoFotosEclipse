@@ -78,5 +78,9 @@ public class Gestor implements ActionListener{
 	        }
 	 
 	}
+	public double progreso(File[] files) {
+		double porcentaje=100/files.length;
+		return porcentaje;
+	}
 
 }
