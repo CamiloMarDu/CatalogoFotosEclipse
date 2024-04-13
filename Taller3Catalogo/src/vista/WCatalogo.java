@@ -38,21 +38,6 @@ public class WCatalogo extends JFrame {
 
 	private JLabel lblBusqueda;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WCatalogo frame = new WCatalogo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -93,5 +78,11 @@ public class WCatalogo extends JFrame {
 	public int avisoCerrarVentana() {
 		int val= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea terminar el programa?", "Avertencia", JOptionPane.YES_NO_OPTION);
 		return val;
+	}
+	public void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje);
+	}
+	public void enConsola(String mensaje) {
+		System.out.println(mensaje);
 	}
 }

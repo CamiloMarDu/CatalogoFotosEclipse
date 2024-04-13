@@ -36,12 +36,6 @@ public class Gestor implements ActionListener {
 			System.exit(0);
 		}
 	}
-	public void aviso(String mensaje) {
-		JOptionPane.showMessageDialog(null, mensaje);
-	}
-	public void enConsola(String mensaje) {
-		System.out.println(mensaje);
-	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 

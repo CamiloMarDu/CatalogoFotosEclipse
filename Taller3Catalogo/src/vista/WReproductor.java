@@ -13,6 +13,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JProgressBar;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -54,7 +55,12 @@ public class WReproductor extends JFrame {
 	public WReproductor() {
 		iniciar();
 	}
-
+	public void aviso(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje);
+	}
+	public void enConsola(String mensaje) {
+		System.out.println(mensaje);
+	}
 	public void iniciar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 800);
