@@ -62,7 +62,7 @@ public class Gestor implements ActionListener {
                 break;
             case "buscarCarpeta":
                 cargarImagenes();
-                this.catalogo.cicloBotones(imageFiles.size());
+                this.catalogo.cicloBotones(imageFiles.size(),imageFiles);
                 System.out.print(imageFiles.size());
                
                 break;

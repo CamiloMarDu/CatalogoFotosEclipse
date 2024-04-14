@@ -142,7 +142,8 @@ public class WCatalogo extends JFrame {
 	    	   int posFin=i*400;
 	    	   boton.setBounds(posFin,5,400,400);
 	    	   panelImagenesOprimibles.setPreferredSize(new Dimension(i*400,40));
-	    	   imagenEnBoton(imagen.get(i).getName(), boton);
+	    	 
+	    	   imagenEnBoton("C:\\Users\\juanc\\OneDrive\\Desktop\\fotos messi\\"+imagen.get(i).getName(), boton);
 		}
 	}
 }
