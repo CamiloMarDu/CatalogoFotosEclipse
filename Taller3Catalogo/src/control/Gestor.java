@@ -63,7 +63,7 @@ public class Gestor implements ActionListener {
             case "buscarCarpeta":
                 cargarImagenes();
                 this.catalogo.cicloBotones(imageFiles.size(),imageFiles);
-                System.out.print(imageFiles.size());
+                this.catalogo.enConsola(imageFiles.size());
                
                 break;
         }
@@ -101,13 +101,13 @@ public class Gestor implements ActionListener {
                         }
                     }
                 } else {
-                    System.out.println("La carpeta seleccionada está vacía o no contiene archivos de imagen.");
+                	this.catalogo.enConsola("La carpeta seleccionada está vacía o no contiene archivos de imagen.");
                 }
             } else {
-                System.out.println("La ruta seleccionada no es una carpeta.");
+            	this.catalogo.enConsola("La ruta seleccionada no es una carpeta.");
             }
         } else {
-            System.out.println("Operación cancelada por el usuario.");
+        	this.catalogo.enConsola("Operación cancelada por el usuario.");
         }
     }
 
@@ -120,12 +120,12 @@ public class Gestor implements ActionListener {
 
         // Obtener y mostrar los archivos de imagen seleccionados
         if (!imageFiles.isEmpty()) {
-            System.out.println("Archivos de imagen seleccionados:");
+        	this.catalogo.enConsola("Archivos de imagen seleccionados:");
             for (File file : imageFiles) {
-                System.out.println(file.getAbsolutePath());
+                this.catalogo.enConsola(file.getAbsolutePath());
             }
         } else {
-            System.out.println("No se seleccionaron archivos de imagen.");
+        	this.catalogo.enConsola("No se seleccionaron archivos de imagen.");
         }
     }
 }

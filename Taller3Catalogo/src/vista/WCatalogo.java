@@ -104,7 +104,7 @@ public class WCatalogo extends JFrame {
 	public void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
-	public void enConsola(String mensaje) {
+	public void enConsola(Object mensaje) {
 		System.out.println(mensaje);
 	}
 	//Método para ubicar la imagen en el boton correspondiente, se usa una imagen de prueba que luego se cambiará
