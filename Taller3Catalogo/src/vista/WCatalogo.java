@@ -1,6 +1,8 @@
 package vista;
 
 
+import java.io.File;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,10 +31,10 @@ public class WCatalogo extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	
+	private JLabel lblBusqueda;
 	private JButton btnBuscarDirectorio;
 	private JButton btnSalir;
 	
-	private JLabel lblBusqueda;
 	private JScrollPane scrollPane;
 	public JPanel panelImagenesOprimibles;
 	
@@ -120,12 +122,11 @@ public class WCatalogo extends JFrame {
 			Image imgIns=img_foto.getImage();
 			Image newImg =imgIns.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
 			ImageIcon finalImage=new ImageIcon(newImg);
-			panel.setLayout(null);
 			label.setIcon(finalImage);
 			panel.add(label);
 		}
 		
-	public void cicloBotones(int cant) {
+	public void cicloBotones(int cant, List<File> imagen) {
 		
 		//ScrollPane
 		scrollPane.setBounds(20, 79, 927, 433);
@@ -137,11 +138,11 @@ public class WCatalogo extends JFrame {
 		panelImagenesOprimibles.setLayout(null);
 		
 		for (int i = 0; i < cant; i++) {
-	    	   JLabel boton=new JLabel();
+	    	   JButton boton=new JButton();
 	    	   int posFin=i*400;
 	    	   boton.setBounds(posFin,5,400,400);
 	    	   panelImagenesOprimibles.setPreferredSize(new Dimension(i*400,40));
-	    	   imagenEnLabel("src/media/josko-gvardiol.png", boton, panelImagenesOprimibles);
+	    	   imagenEnBoton(imagen.get(i).getName(), boton);
 		}
 	}
 }
