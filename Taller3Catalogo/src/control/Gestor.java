@@ -2,11 +2,15 @@ package control;
 
 //Importación de clases propias
 import vista.WCatalogo;
+
+import java.awt.Dimension;
 //Importación de clases ajenas
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -45,7 +49,7 @@ public class Gestor implements ActionListener {
 			cerrarVentana(this.catalogo.avisoCerrarVentana());
 		break;		
 		case "buscarCarpeta":
-			
+			this.catalogo.cicloBotones(10);
 		break;
 		}
 	}
