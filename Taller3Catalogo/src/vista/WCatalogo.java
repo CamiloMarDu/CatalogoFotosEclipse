@@ -1,6 +1,8 @@
 package vista;
 
 
+import java.io.File;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -124,7 +126,7 @@ public class WCatalogo extends JFrame {
 			panel.add(label);
 		}
 		
-	public void cicloBotones(int cant) {
+	public void cicloBotones(int cant, List<File> imagen) {
 		
 		//ScrollPane
 		scrollPane.setBounds(20, 79, 927, 433);
@@ -140,7 +142,7 @@ public class WCatalogo extends JFrame {
 	    	   int posFin=i*400;
 	    	   boton.setBounds(posFin,5,400,400);
 	    	   panelImagenesOprimibles.setPreferredSize(new Dimension(i*400,40));
-	    	   panelImagenesOprimibles.add(boton);
+	    	   imagenEnBoton(imagen.get(i).getName(), boton);
 		}
 	}
 }
