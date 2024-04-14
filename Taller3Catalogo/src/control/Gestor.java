@@ -2,12 +2,23 @@ package control;
 
 //Importación de clases propias
 import vista.WCatalogo;
-import javax.swing.*;
+
+
+//Importación de clases ajenas
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
+
+
+
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -34,13 +45,16 @@ public class Gestor implements ActionListener {
         imageFiles = new ArrayList<>();
     }
 
+
     public void cerrarVentana(int val) {
         if (val == JOptionPane.YES_NO_OPTION) {
             System.exit(0);
         }
     }
 
-    @Override
+		
+
+
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "salir":
@@ -48,6 +62,7 @@ public class Gestor implements ActionListener {
                 break;
             case "buscarCarpeta":
                 cargarImagenes();
+                this.catalogo.cicloBotones(imageFiles.size());
                 System.out.print(imageFiles.size());
                
                 break;

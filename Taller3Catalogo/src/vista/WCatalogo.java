@@ -10,10 +10,19 @@ import javax.swing.JOptionPane;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import java.awt.Color;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class WCatalogo extends JFrame {
 
@@ -22,6 +31,10 @@ public class WCatalogo extends JFrame {
 	
 	private JButton btnBuscarDirectorio;
 	private JButton btnSalir;
+	
+	private JLabel lblBusqueda;
+	private JScrollPane scrollPane;
+	public JPanel panelImagenesOprimibles;
 	
 	//Getters y setters botones
 	public JButton getBtnBuscarDirectorio() {
@@ -40,9 +53,6 @@ public class WCatalogo extends JFrame {
 		this.btnSalir = btnSalir;
 	}
 
-	private JLabel lblBusqueda;
-	private JScrollPane scrollPane;
-	private JPanel panelImagenesOprimibles;
 
 
 	/**
@@ -68,6 +78,7 @@ public class WCatalogo extends JFrame {
 		lblBusqueda.setBounds(10, 25, 515, 43);
 		contentPane.add(lblBusqueda);
 		
+		//Creacion Botones
 		btnBuscarDirectorio = new JButton("BUSCAR DIRECTORIO");
 		btnBuscarDirectorio.setFont(new Font("Roboto", Font.BOLD, 16));
 		btnBuscarDirectorio.setBounds(554, 25, 237, 43);
@@ -77,23 +88,11 @@ public class WCatalogo extends JFrame {
 		btnSalir.setFont(new Font("Roboto", Font.BOLD, 16));
 		btnSalir.setBounds(829, 25, 118, 43);
 		contentPane.add(btnSalir);
-		
-		//Panel que va a contener los botones de las respectivas imagenes por si se oprimen.
-		panelImagenesOprimibles = new JPanel();
-		panelImagenesOprimibles.setBackground(new Color(0, 0, 0));
-        panelImagenesOprimibles.setLayout(new FlowLayout());
-        
-      /*  for (int i = 0; i < 100; i++)
-        	{
-            panelImagenesOprimibles.add(new JButton("Boton " + i));
-        }
-        */
-        
-        scrollPane = new JScrollPane(panelImagenesOprimibles);		
-		scrollPane.setBounds(20, 79, 927, 433);
-		
-		contentPane.add(scrollPane);
 
+		//ScrollPane
+        scrollPane = new JScrollPane();	
+        panelImagenesOprimibles = new JPanel();
+	       
 	}
 	
 	public int avisoCerrarVentana() {
@@ -105,5 +104,44 @@ public class WCatalogo extends JFrame {
 	}
 	public void enConsola(String mensaje) {
 		System.out.println(mensaje);
+	}
+	//Método para ubicar la imagen en el boton correspondiente, se usa una imagen de prueba que luego se cambiará
+	public void imagenEnBoton(String imagen, JButton boton) {
+			ImageIcon img_foto=new ImageIcon(imagen);
+			Image imgIns=img_foto.getImage();
+			Image newImg =imgIns.getScaledInstance(boton.getWidth(), boton.getHeight(), Image.SCALE_SMOOTH);
+			ImageIcon finalImage=new ImageIcon(newImg);
+			boton.setIcon(finalImage);
+			panelImagenesOprimibles.add(boton);
+		}
+	//Método para ubicar la imagen en el panel correspondiente, se usa una imagen de prueba que luego se cambiará
+		public void imagenEnLabel(String imagen, JLabel label, JPanel panel) {
+			ImageIcon img_foto=new ImageIcon(imagen);
+			Image imgIns=img_foto.getImage();
+			Image newImg =imgIns.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+			ImageIcon finalImage=new ImageIcon(newImg);
+			panel.setLayout(null);
+			label.setIcon(finalImage);
+			panel.add(label);
+		}
+		
+	public void cicloBotones(int cant) {
+		
+		//ScrollPane
+		scrollPane.setBounds(20, 79, 927, 433);
+		
+		contentPane.add(scrollPane);
+		
+		panelImagenesOprimibles.setBackground(Color.black);
+		scrollPane.setViewportView(panelImagenesOprimibles);
+		panelImagenesOprimibles.setLayout(null);
+		
+		for (int i = 0; i < cant; i++) {
+	    	   JLabel boton=new JLabel();
+	    	   int posFin=i*400;
+	    	   boton.setBounds(posFin,5,400,400);
+	    	   panelImagenesOprimibles.setPreferredSize(new Dimension(i*400,40));
+	    	   imagenEnLabel("src/media/josko-gvardiol.png", boton, panelImagenesOprimibles);
+		}
 	}
 }
