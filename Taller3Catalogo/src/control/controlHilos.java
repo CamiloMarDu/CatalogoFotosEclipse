@@ -1,15 +1,16 @@
 package control;
 
+import java.io.File;
+import java.util.List;
+
 public class controlHilos extends Thread {
 	private volatile boolean detenido = false; // Variable para controlar el estado del hilo
     private final Object lock = new Object(); // Objeto de bloqueo para la sincronización
-    private int iteraciones;
+
+ 
   
 
-    public controlHilos(int iteraciones) {
-        this.iteraciones = iteraciones;
-       
-    }
+   
 
     public void detenerHilo() {
         detenido = true;
@@ -22,9 +23,9 @@ public class controlHilos extends Thread {
         }
     }
 
-    public void run() {
-        for (int i = 1; i <= iteraciones; i++) {
-            System.out.println("Iteración " + i);
+    public void run(int tamaño,int posicionI, List<File> imagen) {
+        for (int i = 0; i < (tamaño-posicionI); i++) {
+            System.out.println(imagen.get(posicionI+i));
             try {
                 Thread.sleep(50000); // Esperar el tiempo de espera especificado
             } catch (InterruptedException e) {

@@ -2,90 +2,115 @@ package control;
 
 //Importación de clases propias
 import vista.WCatalogo;
-//Importación de clases ajenas
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Gestor implements ActionListener {
-	File[] files;
-	private WCatalogo catalogo;
 
-	public Gestor() {
-		catalogo = new WCatalogo();
-		catalogo.setVisible(true);
-		catalogo.setResizable(false);
-		catalogo.setLocationRelativeTo(null);
-		catalogo.setTitle("Catálogo de Imágenes");
+    private WCatalogo catalogo;
+    private List<File> imageFiles; // Lista para almacenar los archivos de imagen
 
-		// SECCION DE ACTION LISTENERS DE LOS BOTONES
-		this.catalogo.getBtnBuscarDirectorio().addActionListener(this);
-		this.catalogo.getBtnBuscarDirectorio().setActionCommand("buscarCarpeta");
+    public Gestor() {
+        catalogo = new WCatalogo();
+        catalogo.setVisible(true);
+        catalogo.setResizable(false);
+        catalogo.setLocationRelativeTo(null);
+        catalogo.setTitle("Catálogo de Imágenes");
 
-		this.catalogo.getBtnSalir().addActionListener(this);
-		this.catalogo.getBtnSalir().setActionCommand("salir");
-	}
+        // SECCION DE ACTION LISTENERS DE LOS BOTONES
+        this.catalogo.getBtnBuscarDirectorio().addActionListener(this);
+        this.catalogo.getBtnBuscarDirectorio().setActionCommand("buscarCarpeta");
 
-	public void cerrarVentana(int val) {
-		if (val == JOptionPane.YES_NO_OPTION) {
-			System.exit(0);
-		}
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
+        this.catalogo.getBtnSalir().addActionListener(this);
+        this.catalogo.getBtnSalir().setActionCommand("salir");
+        
+        // Inicializar la lista de archivos de imagen
+        imageFiles = new ArrayList<>();
+    }
 
-		switch (e.getActionCommand()) {
-		
-		case "salir":
-			cerrarVentana(this.catalogo.avisoCerrarVentana());
-		break;		
-		case "buscarCarpeta":
-			
-		break;
-		}
-	}
+    public void cerrarVentana(int val) {
+        if (val == JOptionPane.YES_NO_OPTION) {
+            System.exit(0);
+        }
+    }
 
-	public void ImageFolderChooser() {
-		File[] files;
-		// Crear un JFileChooser
-		JFileChooser fileChooser = new JFileChooser();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "salir":
+                cerrarVentana(this.catalogo.avisoCerrarVentana());
+                break;
+            case "buscarCarpeta":
+                cargarImagenes();
+                System.out.print(imageFiles.size());
+               
+                break;
+        }
+    }
 
-		// Configurar el JFileChooser para que solo muestre directorios
-		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    public void chooseImageFolder() {
+        // Crear un JFileChooser
+        JFileChooser fileChooser = new JFileChooser();
 
-		// Mostrar el cuadro de diálogo de selección de archivos
-		int result = fileChooser.showOpenDialog(null);
+        // Configurar el JFileChooser para que solo muestre directorios
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-		if (result == JFileChooser.APPROVE_OPTION) {
-			// Obtener la carpeta seleccionada
-			File selectedFolder = fileChooser.getSelectedFile();
+        // Agregar filtro para archivos de imagen
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "png");
+        fileChooser.setFileFilter(filter);
 
-			// Obtener todos los archivos en la carpeta seleccionada
-			files = selectedFolder.listFiles();
+        // Mostrar el cuadro de diálogo de selección de archivos
+        int result = fileChooser.showOpenDialog(null);
 
-			if (files != null) {
-				// Filtrar solo los archivos de imagen (por ejemplo, jpg, png, etc.)
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagenes", "jpg", "jpeg", "png", "gif");
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Obtener la carpeta seleccionada
+            File selectedFolder = fileChooser.getSelectedFile();
 
-			} else {
-				System.out.println("La carpeta seleccionada está vacía.");
+            // Verificar si la carpeta contiene archivos
+            if (selectedFolder.isDirectory()) {
+                // Obtener todos los archivos en la carpeta seleccionada
+                File[] files = selectedFolder.listFiles();
 
-			}
-		} else {
-			System.out.println("Operación cancelada por el usuario.");
+                // Verificar si hay archivos en la carpeta seleccionada
+                if (files != null && files.length > 0) {
+                    // Agregar solo los archivos de imagen a la lista
+                    for (File file : files) {
+                        if (filter.accept(file)) {
+                            imageFiles.add(file);
+                        }
+                    }
+                } else {
+                    System.out.println("La carpeta seleccionada está vacía o no contiene archivos de imagen.");
+                }
+            } else {
+                System.out.println("La ruta seleccionada no es una carpeta.");
+            }
+        } else {
+            System.out.println("Operación cancelada por el usuario.");
+        }
+    }
 
-		}
+    public List<File> getImageFiles() {
+        return imageFiles;
+    }
 
-	}
+    public void cargarImagenes() {
+        chooseImageFolder();
 
-	public double progreso(File[] files) {
-		double porcentaje = 100 / files.length;
-		return porcentaje;
-	}
-
+        // Obtener y mostrar los archivos de imagen seleccionados
+        if (!imageFiles.isEmpty()) {
+            System.out.println("Archivos de imagen seleccionados:");
+            for (File file : imageFiles) {
+                System.out.println(file.getAbsolutePath());
+            }
+        } else {
+            System.out.println("No se seleccionaron archivos de imagen.");
+        }
+    }
 }
