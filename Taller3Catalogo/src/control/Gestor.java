@@ -40,12 +40,13 @@ public class Gestor implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		switch (e.getActionCommand()) {
+		
 		case "salir":
 			cerrarVentana(this.catalogo.avisoCerrarVentana());
-			break;
+		break;		
 		case "buscarCarpeta":
-
-			break;
+			
+		break;
 		}
 	}
 

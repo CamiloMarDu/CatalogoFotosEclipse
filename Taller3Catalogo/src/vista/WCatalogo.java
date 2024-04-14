@@ -1,6 +1,6 @@
 package vista;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,8 +8,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import java.awt.Color;
 
 public class WCatalogo extends JFrame {
 
@@ -37,6 +41,8 @@ public class WCatalogo extends JFrame {
 	}
 
 	private JLabel lblBusqueda;
+	private JScrollPane scrollPane;
+	private JPanel panelImagenesOprimibles;
 
 
 	/**
@@ -50,16 +56,14 @@ public class WCatalogo extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 973, 562);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 79, 937, 433);
-		contentPane.add(panel);
-		
 		lblBusqueda = new JLabel("Busque el directorio de imágenes:");
+		lblBusqueda.setForeground(new Color(255, 255, 255));
 		lblBusqueda.setFont(new Font("Roboto", Font.BOLD, 32));
 		lblBusqueda.setBounds(10, 25, 515, 43);
 		contentPane.add(lblBusqueda);
@@ -73,6 +77,23 @@ public class WCatalogo extends JFrame {
 		btnSalir.setFont(new Font("Roboto", Font.BOLD, 16));
 		btnSalir.setBounds(829, 25, 118, 43);
 		contentPane.add(btnSalir);
+		
+		//Panel que va a contener los botones de las respectivas imagenes por si se oprimen.
+		panelImagenesOprimibles = new JPanel();
+		panelImagenesOprimibles.setBackground(new Color(0, 0, 0));
+        panelImagenesOprimibles.setLayout(new FlowLayout());
+        
+      /*  for (int i = 0; i < 100; i++)
+        	{
+            panelImagenesOprimibles.add(new JButton("Boton " + i));
+        }
+        */
+        
+        scrollPane = new JScrollPane(panelImagenesOprimibles);		
+		scrollPane.setBounds(20, 79, 927, 433);
+		
+		contentPane.add(scrollPane);
+
 	}
 	
 	public int avisoCerrarVentana() {
