@@ -3,6 +3,8 @@ package control;
 //Importación de clases propias
 import vista.WCatalogo;
 
+import java.awt.Color;
+import java.awt.Dimension;
 
 //Importación de clases ajenas
 
@@ -13,9 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -62,7 +62,11 @@ public class Gestor implements ActionListener {
                 break;
             case "buscarCarpeta":
                 cargarImagenes();
-                this.catalogo.cicloBotones(imageFiles.size(),imageFiles);
+                //Direcciones de prueba --------------------------------------------------
+                String direccionCarpeta="C:\\Users\\juanc\\OneDrive\\Desktop\\fotos messi\\";
+                String direccionCarpetaYo="C:\\Users\\Camilo\\Pictures\\Fotos\\";
+                
+                cicloBotones(imageFiles.size(),imageFiles, direccionCarpetaYo);
                 this.catalogo.enConsola(imageFiles.size());
                
                 break;
@@ -128,4 +132,34 @@ public class Gestor implements ActionListener {
         	this.catalogo.enConsola("No se seleccionaron archivos de imagen.");
         }
     }
+public void cicloBotones(int cant, List<File> imagen, String dirCarpeta) {
+		
+		//ScrollPane
+		this.catalogo.scrollPane.setBounds(20, 79, 927, 433);
+		this.catalogo.contentPane.add(this.catalogo.scrollPane);
+		
+		this.catalogo.panelImagenesOprimibles.setBackground(Color.black);
+		this.catalogo.scrollPane.setViewportView(this.catalogo.panelImagenesOprimibles);
+		this.catalogo.panelImagenesOprimibles.setLayout(null);
+		
+		for (int i = 0; i < cant; i++) {
+			
+	    	   this.catalogo.panelImagenesOprimibles.setPreferredSize(new Dimension((i+1)*400,40));
+	    	   
+	    	   JButton boton=new JButton();
+	    	   int posFin=i*400;
+	    	   boton.setBounds(posFin,5,400,400);
+	    	   this.catalogo.imagenEnBoton(dirCarpeta+imagen.get(i).getName(), boton);
+	    	   
+	    	   boton.addActionListener(new ActionListener() {
+	               @Override
+	               public void actionPerformed(ActionEvent e1) {
+	            	   new GestorVisor();
+	                  
+	                  
+	                  
+	               }
+	           });
+		}
+	}
 }

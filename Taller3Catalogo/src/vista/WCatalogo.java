@@ -29,13 +29,13 @@ import javax.swing.GroupLayout.Alignment;
 public class WCatalogo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	public JPanel contentPane;
 	
 	private JLabel lblBusqueda;
 	private JButton btnBuscarDirectorio;
 	private JButton btnSalir;
 	
-	private JScrollPane scrollPane;
+	public JScrollPane scrollPane;
 	public JPanel panelImagenesOprimibles;
 	
 	//Getters y setters botones
@@ -76,7 +76,7 @@ public class WCatalogo extends JFrame {
 		
 		lblBusqueda = new JLabel("Busque el directorio de imágenes:");
 		lblBusqueda.setForeground(new Color(255, 255, 255));
-		lblBusqueda.setFont(new Font("Roboto", Font.BOLD, 32));
+		lblBusqueda.setFont(new Font("Roboto", Font.BOLD, 30));
 		lblBusqueda.setBounds(10, 25, 515, 43);
 		contentPane.add(lblBusqueda);
 		
@@ -101,12 +101,15 @@ public class WCatalogo extends JFrame {
 		int val= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea terminar el programa?", "Avertencia", JOptionPane.YES_NO_OPTION);
 		return val;
 	}
+	
 	public void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
+	//Método para imprimir en consola
 	public void enConsola(Object mensaje) {
 		System.out.println(mensaje);
 	}
+	
 	//Método para ubicar la imagen en el boton correspondiente, se usa una imagen de prueba que luego se cambiará
 	public void imagenEnBoton(String imagen, JButton boton) {
 			ImageIcon img_foto=new ImageIcon(imagen);
@@ -116,34 +119,4 @@ public class WCatalogo extends JFrame {
 			boton.setIcon(finalImage);
 			panelImagenesOprimibles.add(boton);
 		}
-	//Método para ubicar la imagen en el panel correspondiente, se usa una imagen de prueba que luego se cambiará
-		public void imagenEnLabel(String imagen, JLabel label, JPanel panel) {
-			ImageIcon img_foto=new ImageIcon(imagen);
-			Image imgIns=img_foto.getImage();
-			Image newImg =imgIns.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
-			ImageIcon finalImage=new ImageIcon(newImg);
-			label.setIcon(finalImage);
-			panel.add(label);
-		}
-		
-	public void cicloBotones(int cant, List<File> imagen) {
-		
-		//ScrollPane
-		scrollPane.setBounds(20, 79, 927, 433);
-		
-		contentPane.add(scrollPane);
-		
-		panelImagenesOprimibles.setBackground(Color.black);
-		scrollPane.setViewportView(panelImagenesOprimibles);
-		panelImagenesOprimibles.setLayout(null);
-		
-		for (int i = 0; i < cant; i++) {
-	    	   JButton boton=new JButton();
-	    	   int posFin=i*400;
-	    	   boton.setBounds(posFin,5,400,400);
-	    	   panelImagenesOprimibles.setPreferredSize(new Dimension(i*400,40));
-	    	 
-	    	   imagenEnBoton("C:\\Users\\juanc\\OneDrive\\Desktop\\fotos messi\\"+imagen.get(i).getName(), boton);
-		}
-	}
 }

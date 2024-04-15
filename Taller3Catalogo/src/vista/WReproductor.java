@@ -27,28 +27,34 @@ public class WReproductor extends JFrame {
 	
 	private JProgressBar barra;
 	private JPanel panelBotonFoto;
+	
 	private JButton btnDetener;
 	private JButton btnContinuar;
 	private JButton btnSalir;
+	
+	public JButton getBtnDetener() {
+		return btnDetener;
+	}
+	public void setBtnDetener(JButton btnDetener) {
+		this.btnDetener = btnDetener;
+	}
+	public JButton getBtnContinuar() {
+		return btnContinuar;
+	}
+	public void setBtnContinuar(JButton btnContinuar) {
+		this.btnContinuar = btnContinuar;
+	}
+	public JButton getBtnSalir() {
+		return btnSalir;
+	}
+	public void setBtnSalir(JButton btnSalir) {
+		this.btnSalir = btnSalir;
+	}
+	
 	private JTextField fieldNumeroImagen;
 	private JLabel lblSlash;
 	
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WReproductor frame = new WReproductor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	/**
 	 * Create the frame.
 	 */
