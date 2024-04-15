@@ -59,6 +59,17 @@ public class controlHilos extends Thread {
             lock.notify(); // Notificar al hilo para que continúe
         }
     }
+    public void matarHilo() {
+        this.detenerHilo(); // Utiliza tu método detenerHilo() para detener el hilo
+        try {
+            this.join(); // Espera a que el hilo termine su ejecución
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean estaVivo() {
+        return this.isAlive(); // Utiliza el método isAlive() de la clase Thread para verificar si el hilo está vivo
+    }
   
     public void run() {
         gestorVisor.visor.elegirMaximo(tamaño);

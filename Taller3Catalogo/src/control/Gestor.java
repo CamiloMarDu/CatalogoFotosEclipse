@@ -98,18 +98,19 @@ public class Gestor implements ActionListener {
                 if (files != null && files.length > 0) {
                     // Agregar solo los archivos de imagen a la lista
                     for (File file : files) {
-                        if (filter.accept(file)) {
+                        // Verificar si el archivo termina con .png o .jpg
+                        if (file.getName().toLowerCase().endsWith(".png") || file.getName().toLowerCase().endsWith(".jpg")) {
                             imageFiles.add(file);
                         }
                     }
                 } else {
-                	this.catalogo.enConsola("La carpeta seleccionada está vacía o no contiene archivos de imagen.");
+                    this.catalogo.enConsola("La carpeta seleccionada está vacía o no contiene archivos de imagen.");
                 }
             } else {
-            	this.catalogo.enConsola("La ruta seleccionada no es una carpeta.");
+                this.catalogo.enConsola("La ruta seleccionada no es una carpeta.");
             }
         } else {
-        	this.catalogo.enConsola("Operación cancelada por el usuario.");
+            this.catalogo.enConsola("Operación cancelada por el usuario.");
         }
     }
 
@@ -127,7 +128,7 @@ public class Gestor implements ActionListener {
                 this.catalogo.enConsola(file.getAbsolutePath());
             }
         } else {
-        	this.catalogo.enConsola("No se seleccionaron archivos de imagen.");
+        	this.catalogo.aviso("No se seleccionaron archivos de imagen.");
         }
     }
 public void cicloBotones(int cant, List<File> imagen ) {

@@ -58,12 +58,13 @@ public class GestorVisor implements ActionListener {
 			ha.reanudarHilo();
 			visor.getBtnContinuar().setEnabled(false);
 			visor.getBtnDetener().setEnabled(true);
-			
+			visor.aviso("La ejecución del hilo No: "+ha.getId()+" esta viva? "+ha.estaVivo());
 			visor.aviso("sea continuado");
 			break;
 		case ("salir"):
 			visor.aviso("La ejecución del hilo No: "+ha.getId()+" termina");
-			visor.dispose();
+		ha.matarHilo();	
+		visor.dispose();
 			break;
 		}
 	}
