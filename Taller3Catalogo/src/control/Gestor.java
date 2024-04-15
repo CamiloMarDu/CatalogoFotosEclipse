@@ -33,6 +33,8 @@ public class Gestor implements ActionListener {
         catalogo.setResizable(false);
         catalogo.setLocationRelativeTo(null);
         catalogo.setTitle("Catálogo de Imágenes");
+      
+       
 
         // SECCION DE ACTION LISTENERS DE LOS BOTONES
         this.catalogo.getBtnBuscarDirectorio().addActionListener(this);
@@ -63,10 +65,9 @@ public class Gestor implements ActionListener {
             case "buscarCarpeta":
                 cargarImagenes();
                 //Direcciones de prueba --------------------------------------------------
-                String direccionCarpeta="C:\\Users\\juanc\\OneDrive\\Desktop\\fotos messi\\";
-                String direccionCarpetaYo="C:\\Users\\Camilo\\Pictures\\Fotos\\";
                 
-                cicloBotones(imageFiles.size(),imageFiles, direccionCarpetaYo);
+                
+                cicloBotones(imageFiles.size(),imageFiles);
                 this.catalogo.enConsola(imageFiles.size());
                
                 break;
@@ -132,8 +133,8 @@ public class Gestor implements ActionListener {
         	this.catalogo.enConsola("No se seleccionaron archivos de imagen.");
         }
     }
-public void cicloBotones(int cant, List<File> imagen, String dirCarpeta) {
-		
+public void cicloBotones(int cant, List<File> imagen ) {
+	
 		//ScrollPane
 		this.catalogo.scrollPane.setBounds(20, 79, 927, 433);
 		this.catalogo.contentPane.add(this.catalogo.scrollPane);
@@ -149,12 +150,15 @@ public void cicloBotones(int cant, List<File> imagen, String dirCarpeta) {
 	    	   JButton boton=new JButton();
 	    	   int posFin=i*400;
 	    	   boton.setBounds(posFin,5,400,400);
-	    	   this.catalogo.imagenEnBoton(dirCarpeta+imagen.get(i).getName(), boton);
-	    	   
+	    	   this.catalogo.imagenEnBoton(imagen.get(i).getPath(), boton);
+	    	   int posicion=i;
 	    	   boton.addActionListener(new ActionListener() {
 	               @Override
 	               public void actionPerformed(ActionEvent e1) {
-	            	   new GestorVisor();
+	            	 
+	            	   
+	            	  
+	            	   new GestorVisor(imagen.size()-posicion, imagen.size(),imagen);
 	                  
 	                  
 	                  

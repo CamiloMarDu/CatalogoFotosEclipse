@@ -2,24 +2,30 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
 
 import vista.WReproductor;
 
 public class GestorVisor implements ActionListener {
-	controlHilos h;
+	controlHilos ha;
 	WReproductor visor;
-	public GestorVisor() {
-		h= new controlHilos();
-        h.start();
-        
-        
-        
+	
+	public GestorVisor(int posicion,int tamaño,List<File> imagen) {
 		visor = new WReproductor();
-    	visor.aviso("\nId Hilo a ejecutar:"+h.getId());
+		ha = new controlHilos(this, posicion, tamaño, imagen);
+		ha.setImagen(imagen);
+ 	   ha.setPosicionI(imagen.size()-posicion);
+ 	   ha.setTamaño(imagen.size());
+        ha.start();
+        
+		
+		
+    	visor.aviso("\nId Hilo a ejecutar:"+ha.getId()+"\nimagen elegida"+imagen.get(imagen.size()-posicion).getPath());
     	visor.setVisible(true);
     	visor.setResizable(false);
     	visor.setLocationRelativeTo(null);
-    	visor.setTitle("Visor de hilo No."+ h.getId());
+    	visor.setTitle("Visor de hilo No."+ ha.getId());
     	
         // SECCION DE ACTION LISTENERS DE LOS BOTONES
     	visor.getBtnDetener().addActionListener(this);
@@ -33,7 +39,7 @@ public class GestorVisor implements ActionListener {
         
         visor.getBtnContinuar().setEnabled(false);
         
-        visor.imagenEnLabel(null);
+        
         
 	}
 	@Override
@@ -42,21 +48,21 @@ public class GestorVisor implements ActionListener {
 		switch(e.getActionCommand()) {
 		case ("detener"):
 
-			h.detenerHilo();
+			ha.detenerHilo();
 			visor.getBtnContinuar().setEnabled(true);
 			visor.getBtnDetener().setEnabled(false);
 		
-			visor.aviso(null);
+			visor.aviso("las imagenes se han detenido");
 			break;
 		case ("continuar"):
-			h.reanudarHilo();
+			ha.reanudarHilo();
 			visor.getBtnContinuar().setEnabled(false);
 			visor.getBtnDetener().setEnabled(true);
 			
-			visor.aviso(null);
+			visor.aviso("sea continuado");
 			break;
 		case ("salir"):
-			visor.aviso("La ejecución del hilo No: "+h.getId()+" termina");
+			visor.aviso("La ejecución del hilo No: "+ha.getId()+" termina");
 			visor.dispose();
 			break;
 		}

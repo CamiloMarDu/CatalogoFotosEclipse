@@ -57,6 +57,7 @@ public class WReproductor extends JFrame {
 	private JTextField fieldNumeroImagen;
 	private JLabel lblSlash;
 	private JLabel lblImagenReproducida;
+	private JLabel lblNumeroImagenes;
 	
 	
 	/**
@@ -119,7 +120,7 @@ public class WReproductor extends JFrame {
 		fieldNumeroImagen.setEditable(false);
 		contentPane.add(fieldNumeroImagen);
 		
-		JLabel lblNumeroImagenes = new JLabel("");
+		lblNumeroImagenes = new JLabel("");
 		lblNumeroImagenes.setFont(new Font("Roboto", Font.PLAIN, 15));
 		lblNumeroImagenes.setForeground(new Color(0, 0, 0));
 		lblNumeroImagenes.setBounds(556, 45, 60, 20);
@@ -142,5 +143,13 @@ public class WReproductor extends JFrame {
 		panelImagen.setLayout(null);
 		lblImagenReproducida.setIcon(finalImage);
 		panelImagen.add(lblImagenReproducida);
+	}
+	public void elegirMaximo(int i) {
+		barra.setMaximum(i);
+		lblNumeroImagenes.setText(String.valueOf(i));
+	}
+	public void porcentajeActual(int i) {
+		barra.setValue(i);
+		fieldNumeroImagen.setText(String.valueOf(i));
 	}
 }
