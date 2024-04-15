@@ -33,6 +33,8 @@ public class GestorVisor implements ActionListener {
         
         visor.getBtnContinuar().setEnabled(false);
         
+        visor.imagenEnLabel(null);
+        
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -44,14 +46,17 @@ public class GestorVisor implements ActionListener {
 			visor.getBtnContinuar().setEnabled(true);
 			visor.getBtnDetener().setEnabled(false);
 		
+			visor.aviso(null);
 			break;
 		case ("continuar"):
 			h.reanudarHilo();
 			visor.getBtnContinuar().setEnabled(false);
 			visor.getBtnDetener().setEnabled(true);
 			
+			visor.aviso(null);
 			break;
 		case ("salir"):
+			visor.aviso("La ejecución del hilo No: "+h.getId()+" termina");
 			visor.dispose();
 			break;
 		}
