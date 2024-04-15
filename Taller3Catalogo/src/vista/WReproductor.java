@@ -68,7 +68,7 @@ public class WReproductor extends JFrame {
 	public void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
-	public void enConsola(String mensaje) {
+	public void enConsola(Object mensaje) {
 		System.out.println(mensaje);
 	}
 	public void iniciar() {
