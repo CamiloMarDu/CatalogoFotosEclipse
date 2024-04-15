@@ -69,7 +69,7 @@ public class controlHilos extends Thread {
         try {
             Thread.sleep(1); // Esperar el tiempo de espera especificado
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            this.gestorVisor.visor.enConsola(e);
         }
         
         int currentIndex = 0;
@@ -88,7 +88,7 @@ public class controlHilos extends Thread {
             try {
                 Thread.sleep(5000); // Esperar el tiempo de espera especificado
             } catch (InterruptedException e) {
-                e.printStackTrace();
+            	this.gestorVisor.visor.enConsola(e);
             }
             // Incrementar currentIndex y verificar si ha alcanzado el máximo
             currentIndex++;
@@ -102,7 +102,7 @@ public class controlHilos extends Thread {
                     try {
                         lock.wait(); // Esperar hasta que se reanude el hilo
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    	this.gestorVisor.visor.enConsola(e);
                     }
                 }
             }

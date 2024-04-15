@@ -63,10 +63,7 @@ public class Gestor implements ActionListener {
                 cerrarVentana(this.catalogo.avisoCerrarVentana());
                 break;
             case "buscarCarpeta":
-                cargarImagenes();
-                //Direcciones de prueba --------------------------------------------------
-                
-                
+                cargarImagenes();            
                 cicloBotones(imageFiles.size(),imageFiles);
                 this.catalogo.enConsola(imageFiles.size());
                
