@@ -7,10 +7,13 @@ import javax.swing.border.EmptyBorder;
 
 import control.Gestor;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JProgressBar;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,7 +29,7 @@ public class WReproductor extends JFrame {
 	private JPanel contentPane;
 	
 	private JProgressBar barra;
-	private JPanel panelBotonFoto;
+	private JPanel panelImagen;
 	
 	private JButton btnDetener;
 	private JButton btnContinuar;
@@ -53,6 +56,7 @@ public class WReproductor extends JFrame {
 	
 	private JTextField fieldNumeroImagen;
 	private JLabel lblSlash;
+	private JLabel lblImagenReproducida;
 	
 	
 	/**
@@ -77,9 +81,14 @@ public class WReproductor extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		panelBotonFoto = new JPanel();
-		panelBotonFoto.setBounds(16, 100,600, 600);
-		contentPane.add(panelBotonFoto);
+		panelImagen = new JPanel();
+		panelImagen.setBounds(16, 100,600, 600);
+		contentPane.add(panelImagen);
+		panelImagen.setLayout(null);
+		
+		lblImagenReproducida = new JLabel("");
+		lblImagenReproducida.setBounds(0, 0, 600, 600);
+		panelImagen.add(lblImagenReproducida);
 		
 		btnDetener = new JButton("DETENER");
 		btnDetener.setFont(new Font("Roboto", Font.BOLD, 17));
@@ -124,5 +133,14 @@ public class WReproductor extends JFrame {
 		
 		
 		
+	}
+	public void imagenEnLabel(String imagen) {
+		ImageIcon img_foto=new ImageIcon(imagen);
+		Image imgIns=img_foto.getImage();
+		Image newImg =imgIns.getScaledInstance(lblImagenReproducida.getWidth(), lblImagenReproducida.getHeight(), Image.SCALE_SMOOTH);
+		ImageIcon finalImage=new ImageIcon(newImg);
+		panelImagen.setLayout(null);
+		lblImagenReproducida.setIcon(finalImage);
+		panelImagen.add(lblImagenReproducida);
 	}
 }
