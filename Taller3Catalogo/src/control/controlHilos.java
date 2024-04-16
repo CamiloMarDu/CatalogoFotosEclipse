@@ -1,7 +1,5 @@
 package control;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,73 +7,119 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+/**
+ * Clase que controla el hilo de ejecución para la reproducción de imágenes.
+ */
 public class controlHilos extends Thread {
-	private volatile boolean detenido = false; // Variable para controlar el estado del hilo
+    private volatile boolean detenido = false; // Variable para controlar el estado del hilo
     private final Object lock = new Object(); // Objeto de bloqueo para la sincronización
-    int tamaño;
-    int posicionI; 
-    List<File> imagen;
-	private GestorVisor gestorVisor;
- 
-    public controlHilos(GestorVisor gestorVisor, int posicion, int tamaño, List<File> imagen) {
-        this.gestorVisor = gestorVisor; // Asignar la referencia de GestorVisor
-     
+    private int tamano;
+    private int posicionI;
+    private boolean matar = false;
+    private List<File> imagen;
+    private GestorVisor gestorVisor;
+
+    /**
+     * Constructor de la clase controlHilos.
+     * @param gestorVisor El objeto GestorVisor asociado al controlHilos.
+     * @param posicion La posición inicial de la imagen.
+     * @param tamano El tamaño total de la lista de imágenes.
+     * @param imagen La lista de imágenes a reproducir.
+     */
+    public controlHilos(GestorVisor gestorVisor, int posicion, int tamano, List<File> imagen) {
+        this.gestorVisor = gestorVisor;
     }
 
-   
+    /**
+     * Obtiene el tamaño total de la lista de imágenes.
+     * @return El tamaño total de la lista de imágenes.
+     */
+    public int getTamano() {
+        return tamano;
+    }
 
-    public int getTamaño() {
-		return tamaño;
-	}
+    /**
+     * Establece el tamano total de la lista de imágenes.
+     * @param tamano El tamano total de la lista de imágenes.
+     */
+    public void setTamano(int tamano) {
+        this.tamano = tamano;
+    }
 
-	public void setTamaño(int tamaño) {
-		this.tamaño = tamaño;
-	}
+    /**
+     * Obtiene la posición actual de la imagen en reproducción.
+     * @return La posición actual de la imagen.
+     */
+    public int getPosicionI() {
+        return posicionI;
+    }
 
-	public int getPosicionI() {
-		return posicionI;
-	}
+    /**
+     * Establece la posición inicial de la imagen.
+     * @param posicionI La posición inicial de la imagen.
+     */
+    public void setPosicionI(int posicionI) {
+        this.posicionI = posicionI;
+    }
 
-	public void setPosicionI(int posicionI) {
-		this.posicionI = posicionI;
-	}
+    /**
+     * Obtiene la lista de imágenes a reproducir.
+     * @return La lista de imágenes.
+     */
+    public List<File> getImagen() {
+        return imagen;
+    }
 
-	public List<File> getImagen() {
-		return imagen;
-	}
+    /**
+     * Establece la lista de imágenes a reproducir.
+     * @param imagen La lista de imágenes.
+     */
+    public void setImagen(List<File> imagen) {
+        this.imagen = imagen;
+    }
 
-	public void setImagen(List<File> imagen) {
-		this.imagen = imagen;
-	}
-
-	public void detenerHilo() {
+    /**
+     * Detiene la ejecución del hilo.
+     */
+    public void detenerHilo() {
         detenido = true;
-     
     }
 
+    /**
+     * Reanuda la ejecución del hilo.
+     */
     public void reanudarHilo() {
         synchronized (lock) {
             detenido = false;
             lock.notify(); // Notificar al hilo para que continúe
         }
     }
-    public void matarHilo() {
-        this.detenerHilo(); // Utiliza tu método detenerHilo() para detener el hilo
-        try {
-            this.join(); // Espera a que el hilo termine su ejecución
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+    /**
+     * Interrumpe la ejecución del hilo.
+     * @return true si se interrumpe el hilo, false en caso contrario.
+     */
+    public boolean matar() {
+        matar = true; // Interrumpir el hilo
+        return matar;
     }
+
+    /**
+     * Verifica si el hilo está vivo.
+     * @return true si el hilo está vivo, false en caso contrario.
+     */
     public boolean estaVivo() {
         return this.isAlive(); // Utiliza el método isAlive() de la clase Thread para verificar si el hilo está vivo
     }
-  
+
+    /**
+     * Método principal del hilo de control.
+     */
     public void run() {
-        gestorVisor.visor.elegirMaximo(tamaño);
+        gestorVisor.visor.elegirMaximo(tamano);
         gestorVisor.visor.imagenEnLabel(imagen.get(posicionI).getPath());
      
-        gestorVisor.visor.porcentajeActual(  posicionI + 1);
+        gestorVisor.visor.porcentajeActual(posicionI + 1);
        
         try {
             Thread.sleep(1); // Esperar el tiempo de espera especificado
@@ -84,28 +128,28 @@ public class controlHilos extends Thread {
         }
         
         int currentIndex = 0;
-        int posinicial=posicionI;
+        int posinicial = posicionI;
         while (!detenido) {
             final int index = currentIndex; // Variable final para usar en el hilo
-            final int index2=posinicial;
+            final int index2 = posinicial;
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    gestorVisor.visor.porcentajeActual( index + 1+index2);
-                    gestorVisor.visor.imagenEnLabel(imagen.get(index+index2 ).getPath());
-                    gestorVisor.visor.enConsola(imagen.get(index +index2).getPath());
+                    gestorVisor.visor.porcentajeActual(index + 1 + index2);
+                    gestorVisor.visor.imagenEnLabel(imagen.get(index + index2).getPath());
+                    gestorVisor.visor.enConsola(imagen.get(index + index2).getPath());
                 }
             });
             try {
                 Thread.sleep(5000); // Esperar el tiempo de espera especificado
             } catch (InterruptedException e) {
-            	this.gestorVisor.visor.enConsola(e);
+                this.gestorVisor.visor.enConsola(e);
             }
             // Incrementar currentIndex y verificar si ha alcanzado el máximo
             currentIndex++;
-            if (currentIndex == tamaño -posinicial) {
+            if (currentIndex == tamano - posinicial) {
                 currentIndex = 0;
-                posinicial=0;// Reiniciar a 0 si alcanza la posición máxima
+                posinicial = 0; // Reiniciar a 0 si alcanza la posición máxima
             }
             // Verificar si el hilo debe ser detenido
             synchronized (lock) {
@@ -113,11 +157,15 @@ public class controlHilos extends Thread {
                     try {
                         lock.wait(); // Esperar hasta que se reanude el hilo
                     } catch (InterruptedException e) {
-                    	this.gestorVisor.visor.enConsola(e);
+                        this.gestorVisor.visor.enConsola(e);
                     }
                 }
+            }
+            if (matar) {
+                this.detenerHilo();
+                this.interrupt();
+                break;
             }
         }
     }
 }
-

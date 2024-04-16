@@ -1,6 +1,5 @@
 package vista;
 
-
 import java.io.File;
 import java.util.List;
 
@@ -26,31 +25,62 @@ import java.awt.Dimension;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
+/**
+ * La clase WCatalogo representa la ventana de catálogo de imágenes.
+ */
 public class WCatalogo extends JFrame {
+	 /** El panel principal de la interfaz. */
+    public JPanel contentPane;
 
-	private static final long serialVersionUID = 1L;
-	public JPanel contentPane;
-	
-	private JLabel lblBusqueda;
-	private JButton btnBuscarDirectorio;
-	private JButton btnSalir;
-	
-	public JScrollPane scrollPane;
-	public JPanel panelImagenesOprimibles;
+    /** Etiqueta para mostrar el mensaje de búsqueda. */
+    private JLabel lblBusqueda;
+
+    /** Botón para buscar directorio. */
+    private JButton btnBuscarDirectorio;
+
+    /** Botón para salir de la aplicación. */
+    private JButton btnSalir;
+
+    /** Scroll pane para la visualización de imágenes. */
+    public JScrollPane scrollPane;
+
+    /** Panel que contiene las imágenes oprimibles. */
+    public JPanel panelImagenesOprimibles;
+    
+    /**
+     * Constructor de la clase. Inicia la interfaz gráfica del catálogo.
+     */
 	
 	//Getters y setters botones
+	
+	/**
+	 * Retorna el botón para buscar directorio.
+	 * @return El botón para buscar directorio.
+	 */
 	public JButton getBtnBuscarDirectorio() {
 		return btnBuscarDirectorio;
 	}
 
+	/**
+	 * Establece el botón para buscar directorio.
+	 * @param btnBuscarDirectorio El botón para buscar directorio.
+	 */
 	public void setBtnBuscarDirectorio(JButton btnBuscarDirectorio) {
 		this.btnBuscarDirectorio = btnBuscarDirectorio;
 	}
 
+	/**
+	 * Retorna el botón para salir.
+	 * @return El botón para salir.
+	 */
 	public JButton getBtnSalir() {
 		return btnSalir;
 	}
 
+	/**
+	 * Establece el botón para salir.
+	 * @param btnSalir El botón para salir.
+	 */
 	public void setBtnSalir(JButton btnSalir) {
 		this.btnSalir = btnSalir;
 	}
@@ -58,12 +88,15 @@ public class WCatalogo extends JFrame {
 
 
 	/**
-	 * Create the frame.
+	 * Constructor de la clase WCatalogo.
 	 */
 	public WCatalogo() {
 		iniciar();
 	}
 	
+	/**
+	 * Inicializa la interfaz de la ventana.
+	 */
 	public void iniciar() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 973, 562);
@@ -97,20 +130,37 @@ public class WCatalogo extends JFrame {
 	       
 	}
 	
+	/**
+	 * Muestra un aviso para confirmar el cierre de la ventana.
+	 * @return La opción seleccionada por el usuario (Sí o No).
+	 */
 	public int avisoCerrarVentana() {
 		int val= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea terminar el programa?", "Avertencia", JOptionPane.YES_NO_OPTION);
 		return val;
 	}
 	
+	/**
+	 * Muestra un aviso con el mensaje proporcionado.
+	 * @param mensaje El mensaje a mostrar.
+	 */
 	public void aviso(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 	//Método para imprimir en consola
+	
+	/**
+	 * Imprime un mensaje en la consola.
+	 * @param mensaje El mensaje a imprimir.
+	 */
 	public void enConsola(Object mensaje) {
 		System.out.println(mensaje);
 	}
 	
-	//Método para ubicar la imagen en el boton correspondiente, se usa una imagen de prueba que luego se cambiará
+	/**
+	 * Ubica la imagen en el botón correspondiente.
+	 * @param imagen La ruta de la imagen.
+	 * @param boton El botón en el que se colocará la imagen.
+	 */
 	public void imagenEnBoton(String imagen, JButton boton) {
 			ImageIcon img_foto=new ImageIcon(imagen);
 			Image imgIns=img_foto.getImage();
@@ -120,3 +170,4 @@ public class WCatalogo extends JFrame {
 			panelImagenesOprimibles.add(boton);
 		}
 }
+
